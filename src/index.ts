@@ -1,13 +1,9 @@
-import express, { Request, Response } from 'express';
-import { router } from './routes';
+import { App } from './app'
 
-const server = express();
+const PORT = '5000'
 
-server.use(express.json())
-server.use(router)
+const app = App()
 
-server.get('/', (request: Request, response: Response) => {
-    return response.status(200).json({ message: 'DioBank API' })
+app.listen(PORT, () => {
+    console.log("Server on update")
 })
-
-server.listen(5000, () => console.log('Server on'))

@@ -1,9 +1,11 @@
-/*
- * For a detailed explanation regarding each configuration property and type check, visit:
+/**
+ * For a detailed explanation regarding each configuration property, visit:
  * https://jestjs.io/docs/configuration
  */
 
-export default {
+import type {Config} from 'jest';
+
+const config: Config = {
   // All imported modules in your tests should be mocked automatically
   // automock: false,
 
@@ -11,7 +13,7 @@ export default {
   // bail: 0,
 
   // The directory where Jest should store its cached dependency information
-  // cacheDirectory: "C:\\Users\\naths\\AppData\\Local\\Temp\\jest",
+  // cacheDirectory: "C:\\Users\\yuri\\AppData\\Local\\Temp\\jest",
 
   // Automatically clear mock calls, instances, contexts and results before every test
   clearMocks: true,
@@ -100,7 +102,7 @@ export default {
   // notifyMode: "failure-change",
 
   // A preset that is used as a base for Jest's configuration
-  preset: "ts-jest",
+  // preset: undefined,
 
   // Run tests from one or more projects
   // projects: undefined,
@@ -154,6 +156,7 @@ export default {
 
   // The glob patterns Jest uses to detect test files
   testMatch: [
+    "**/__tests__/**/*.[jt]s?(x)",
     "**/?(*.)+(spec|test).[tj]s?(x)"
   ],
 
@@ -192,3 +195,5 @@ export default {
   // Whether to use watchman for file crawling
   // watchman: true,
 };
+
+export default config;
