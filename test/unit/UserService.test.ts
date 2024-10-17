@@ -1,5 +1,6 @@
 import { UserService } from '../../src/services/UserService'
 import HttpStatusCode from '../../src/helpers/HTTPCode'
+import ErrosMessage from '../../src/helpers/ErrorMessages'
 
 const mockUserRepositoryInsert = jest.fn()
 const mockUserRepositoryUpdate = jest.fn()
@@ -49,10 +50,10 @@ describe('UserService', () => {
         mockUserRepositoryInsert.mockReturnValueOnce(false)
 
         const { status, message } = await createUser(mockUser.id, mockUser.name, mockUser.email)
-
+        
         expect(mockUserRepositoryInsert).toHaveBeenCalledWith('2', 'Yuri Dias', 'yuri@gmail.com')
         expect(status).toBe(HttpStatusCode.NoContent)
-        expect(message).toBe('User creation failed')
+        expect(message).toBe(`Error: ${ErrosMessage.processFailure.userCreation}\n`)
     })
 
     it('Sucesso ao editar um usuário existente', async () => {
@@ -73,7 +74,7 @@ describe('UserService', () => {
 
         expect(mockUserRepositoryUpdate).toHaveBeenCalledWith(mockUser)
         expect(status).toBe(HttpStatusCode.NoContent)
-        expect(message).toBe('User not found')
+        expect(message).toBe(`Error: ${ErrosMessage.notFound.user}\n`)
     })
 
     it('Sucesso ao apagar um usuário existente', async () => {
@@ -94,7 +95,7 @@ describe('UserService', () => {
 
         expect(mockUserRepositoryDelete).toHaveBeenCalledWith(mockUser.id)
         expect(status).toBe(HttpStatusCode.NoContent)
-        expect(message).toBe('User not found')
+        expect(message).toBe(`Error: ${ErrosMessage.notFound.user}\n`)
     })
 
     it('Sucesso ao listar um usuário existente', async () => {
@@ -115,7 +116,7 @@ describe('UserService', () => {
 
         expect(mockUserRepositoryFindById).toHaveBeenCalledWith(mockUser.id)
         expect(status).toBe(HttpStatusCode.NoContent)
-        expect(message).toBe('User not found')
+        expect(message).toBe(`Error: ${ErrosMessage.notFound.user}\n`)
     })
 
     it('Sucesso ao listar todos os usuários existentes', async () => {
@@ -136,6 +137,6 @@ describe('UserService', () => {
 
         expect(mockUserRepositoryGet).toHaveBeenCalled()
         expect(status).toBe(HttpStatusCode.NoContent)
-        expect(message).toBe('Users not found')
+        expect(message).toBe(`Error: ${ErrosMessage.notFound.allUsers}\n`)
     })
 })
